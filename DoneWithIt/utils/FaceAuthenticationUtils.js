@@ -38,7 +38,7 @@ export const authenticateFace = async (identityNumber, photos) => {
 
   try {
     const response = await fetch(
-      "http://" + Properties.restSocket + ":8080/confirmPhoto",
+      "http://" + Properties.restSocket + "/confirmPhoto",
       {
         method: "POST",
         body: formData,
