@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "DoneWithIt",
+    "slug": "DoneWithIt",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "notification": {
+      "icon": "./assets/icon.png",
+      "color": "#ffffff"
+    },
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      
+      "permissions": [
+        "ACCESS_FINE_LOCATION"
+      ],
+      "package": "com.emreakburakci.DoneWithIt"
+      
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "bd43ec15-9948-4419-b596-603492e12c9b"
+      }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
+    ]
+  }
+}
