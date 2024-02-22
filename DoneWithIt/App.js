@@ -9,9 +9,9 @@ import AllConfirmationsSuccessfulScreen from "./screens/AllConfirmationsSuccessf
 import MainScreen from "./screens/MainScreen";
 import ProfileInformationScreen from "./screens/ProfileInformationScreen";
 import NotificationScreen from "./screens/NotificationScreen";
-
 import { GlobalStateProvider } from "./GlobalStateContext";
 
+// VSCODE COLLABORATOR MERGE RESTRICT TEST
 const Stack = createStackNavigator();
 
 const App = () => {
