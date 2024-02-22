@@ -10,7 +10,7 @@ import * as FileSystem from "expo-file-system";
 
 export const authenticateFace = async (identityNumber, photos) => {
   //FOR TEST USE ONLY
-  return true;
+  //return true;
   console.log("AUTHENTICATE FACE RUNNED");
 
   //1 FRONT
