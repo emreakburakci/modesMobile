@@ -12,7 +12,7 @@ import NotificationScreen from "./screens/NotificationScreen";
 import { GlobalStateProvider } from "./GlobalStateContext";
 
 const Stack = createStackNavigator();
-//test
+//test2
 const App = () => {
   return (
     <GlobalStateProvider>
