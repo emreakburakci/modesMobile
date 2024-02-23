@@ -11,8 +11,6 @@ import ProfileInformationScreen from "./screens/ProfileInformationScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import { GlobalStateProvider } from "./GlobalStateContext";
 
-// VSCODE COLLABORATOR MERGE RESTRICT TEST
-// VSCODE COLLAB BRANCH PULL REQUEST MERGE RESTRICT TEST
 const Stack = createStackNavigator();
 
 const App = () => {
