@@ -82,6 +82,10 @@ const LocationAuthenticationScreen = ({ navigation }) => {
   };
 
   const handleLogout = () => {
+    globalState.identityNumberGlobal = null;
+    globalState.isFaceConfirmed = false;
+    globalState.isGSMConfirmed = false;
+    globalState.isLocationConfirmed = false;
     navigation.navigate("Login");
   };
 

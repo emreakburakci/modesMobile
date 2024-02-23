@@ -67,7 +67,7 @@ const GSMAuthenticationScreen = ({ navigation }) => {
       code
     );
     console.log("IS GSM CONFIRMED", isGSMConfirmed);
-    if (isGSMConfirmed) {
+    if (isGSMConfirmed.success) {
       globalState.isGSMConfirmed = true;
       Alert.alert(
         translations.GSMAuthenticationSuccessfulTitle,
