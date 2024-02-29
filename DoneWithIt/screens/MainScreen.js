@@ -7,6 +7,9 @@ import { getUnreadNotificationsCount } from "../utils/NotificationUtils";
 import { Feather } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused hook
 
+//FOR TEST USE
+import { getLocationFromIP } from "../utils/LocationAuthenticationUtils";
+
 const MainScreen = ({ navigation }) => {
   const { globalState } = useGlobalState();
 
@@ -36,7 +39,10 @@ const MainScreen = ({ navigation }) => {
     navigation.navigate("ProfileInformation", { userInfo: user });
   };
 
-  const handleHomeButton = () => {};
+  const handleHomeButton = () => {
+    //FOR TEST USE
+    getLocationFromIP();
+  };
   const handlePowerButton = () => {
     globalState.identityNumberGlobal = "";
     navigation.navigate("Login");

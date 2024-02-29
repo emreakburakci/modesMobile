@@ -74,4 +74,5 @@ export const trTranslations = {
   errorIdentityNumberInvalid: "Kimlik Numarası Geçersiz",
   unreadNotifications: "Okunmamış Bildirimler",
   readNotifications: "Okunmuş Bildirimler",
+  cellTowerLocation: "Baz İstasyonu Konumu",
 };

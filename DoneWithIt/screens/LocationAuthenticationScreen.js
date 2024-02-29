@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Button, StyleSheet, Alert } from "react-native";
 import * as Location from "expo-location";
-import { confirmLocation } from "../utils/LocationAuthenticationUtils";
+import {
+  confirmLocation,
+  getLocationFromIP,
+} from "../utils/LocationAuthenticationUtils";
 import { useGlobalState } from "../GlobalStateContext";
 import { getTranslationResource } from "../utils/LanguageUtils";
+import axios from "axios";
+import publicIP from "react-native-public-ip";
 
 const LocationAuthenticationScreen = ({ navigation }) => {
   const [location, setLocation] = useState(null);
   const [addressResponse, setAddressResponse] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-
+  const [cellTowerLocation, setCellTowerLocation] = useState(null);
   const { globalState, setLanguage } = useGlobalState();
 
   console.log(
@@ -43,7 +48,38 @@ const LocationAuthenticationScreen = ({ navigation }) => {
       setAddressResponse(addressResponse);
     })();
   }, []);
+  useEffect(() => {
+    (async () => {
+      let ipAddress = null;
 
+      await publicIP()
+        .then((ip) => {
+          console.log("Public IP:", ip);
+          ipAddress = ip;
+        })
+        .catch((error) => {
+          console.log(error);
+          // 'Unable to get IP address.'
+        });
+
+      // Your code here...
+      axios
+        .get(`http://ip-api.com/json/${ipAddress}`)
+        .then(async (response) => {
+          let address = await Location.reverseGeocodeAsync({
+            latitude: response.data.lat,
+            longitude: response.data.lon,
+          });
+          console.log("lat, lon:", response.data.lat, response.data.lon);
+          console.log("ADDRESS:", address[0]);
+          setCellTowerLocation(address[0].formattedAddress);
+        })
+        .catch((error) => {
+          console.error("Error fetching location:", error);
+        });
+      // Your code here...
+    })();
+  }, []);
   const showMockedLocationAlert = () => {
     globalState.isLocationConfirmed = false;
     globalState.isGSMConfirmed = false;
@@ -99,6 +135,8 @@ const LocationAuthenticationScreen = ({ navigation }) => {
           {addressResponse[0].formattedAddress}
         </Text>
       )}
+      <Text style={styles.title}>{translations.cellTowerLocation}</Text>
+      <Text style={styles.address}>{cellTowerLocation}</Text>
       <View style={styles.buttonContainer}>
         <Button
           color="#9383FF"

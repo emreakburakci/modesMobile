@@ -73,4 +73,5 @@ export const enTranslations = {
   errorIdentityNumberInvalid: "Identity Number Invalid",
   unreadNotifications: "Unread Notifications",
   readNotifications: "Read Notifications",
+  cellTowerLocation: " Cell Tower Location",
 };

@@ -1,5 +1,8 @@
 //addressResponse will be used to confirm location
 import { Properties } from "./Properties.js";
+import axios from "axios";
+import publicIP from "react-native-public-ip";
+import * as Location from "expo-location";
 
 export const confirmLocation = async (
   identityNumberGlobal,

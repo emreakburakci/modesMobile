@@ -68,4 +68,5 @@ export const arTranslations = {
   English: "الإنجليزية",
   Arabic: "العربية",
   errorIdentityNumberInvalid: "A Identity Number Invalid",
+  cellTowerLocation: "Arapça Baz İstasyonu Konumu",
 };
