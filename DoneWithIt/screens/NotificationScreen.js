@@ -31,6 +31,7 @@ const NotificationScreen = ({ navigation }) => {
   }, [globalState.identityNumberGlobal]);
 
   const fetchUnreadNotifications = async () => {
+    console.log("fetchUnreadNotifications runned");
     try {
       const identityNumber = globalState.identityNumberGlobal;
       const fetchedNotifications = await getUnreadNotifications(identityNumber);
@@ -56,6 +57,7 @@ const NotificationScreen = ({ navigation }) => {
     }
   };
   const handleHomeButton = () => {
+    console.log("Navigate home from NotificationScreen");
     navigation.navigate("Main");
   };
   const handlelogoutButton = () => {

@@ -90,3 +90,27 @@ export const setNotificationRead = async (identityNumber, notificationId) => {
   console.log("NOT. UTILS:", responseJson);
   return responseJson;
 };
+
+export const getUnreadNotificationsCount = async (identityNumber) => {
+  console.log("Identity number:", identityNumber);
+
+  const response = await fetch(
+    "http://" +
+      Properties.restSocket +
+      "/getUnreadNotificationsCount?identityNumber=" +
+      identityNumber,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed get count");
+  }
+
+  let responseJson = await response.json();
+  console.log("NOT. UTILS:", responseJson);
+  return responseJson;
+};

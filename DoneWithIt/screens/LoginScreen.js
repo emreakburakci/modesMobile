@@ -93,13 +93,13 @@ const LoginScreen = ({ navigation }) => {
       if (isAuthenticated) {
         Alert.alert(
           translations.loginSuccesfulTitle,
-          "", //translations.loginSuccesfulMessage,
+          "", //translations.loginSuccesfulMessage
           [
             {
               text: translations.alertOK,
               onPress: () => {
-                navigation.navigate("Main");
                 globalState.identityNumberGlobal = identityNumber;
+                navigation.navigate("Main");
               },
             },
           ],

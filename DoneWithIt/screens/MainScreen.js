@@ -1,16 +1,38 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  useFocusEffect,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import { useGlobalState } from "../GlobalStateContext";
 import { getTranslationResource } from "../utils/LanguageUtils";
 import { getUserInformation } from "../utils/ProfileInfromationUtils";
-import { getNotifications } from "../utils/NotificationUtils";
-
+import { getUnreadNotificationsCount } from "../utils/NotificationUtils";
 import { Feather } from "@expo/vector-icons";
+import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused hook
 
 const MainScreen = ({ navigation }) => {
-  const { globalState, setLanguage } = useGlobalState();
+  const { globalState } = useGlobalState();
 
   let translations = getTranslationResource(globalState.language);
+  const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
+  const isFocused = useIsFocused(); // Check if the screen is focused
+
+  useEffect(() => {
+    // Fetch unread notification count when the screen is focused
+    const fetchUnreadNotifications = async () => {
+      const data = await getUnreadNotificationsCount(
+        globalState.identityNumberGlobal
+      );
+      setUnreadNotificationsCount(data.count);
+    };
+    if (isFocused) {
+      fetchUnreadNotifications();
+    }
+  }, [isFocused]);
 
   const startConfirmation = () => {
     navigation.navigate("FaceAuthentication");
@@ -88,7 +110,16 @@ const MainScreen = ({ navigation }) => {
           style={styles.toolbarButton}
           onPress={handleNotificationButton}
         >
-          <Feather name="bell" size={24} style={styles.icon} />
+          {/* <Feather name="bell" size={24} style={styles.icon} /> */}
+
+          <View style={styles.iconWithBadge}>
+            <Feather name="bell" size={24} style={styles.icon} />
+          </View>
+          {unreadNotificationsCount > 0 && (
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>{unreadNotificationsCount}</Text>
+            </View>
+          )}
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -175,6 +206,28 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     resizeMode: "contain",
     marginTop: 20,
+  },
+  iconWithBadge: {
+    position: "relative",
+    width: 24,
+    height: 24,
+  },
+  badge: {
+    position: "absolute",
+    top: -8,
+    right: 4,
+    backgroundColor: "red",
+    borderRadius: 10,
+    minWidth: 20,
+    height: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 1,
+  },
+  badgeText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 12,
   },
 });
 export default MainScreen;
