@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import { useGlobalState } from "../GlobalStateContext";
 import { getTranslationResource } from "../utils/LanguageUtils";
+import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused hook
+import { getUnreadNotificationsCount } from "../utils/NotificationUtils";
 
 import { Feather } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
@@ -23,7 +25,7 @@ const NotificationScreen = ({ navigation }) => {
   //const { notifications } = route.params;
   const [notifications, setNotifications] = useState([]);
   const [readNotifications, setReadNotifications] = useState([]);
-
+  const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
   const [isReadTab, setIsReadTab] = useState(false); // Initialize isReadTab state
 
   useEffect(() => {
@@ -41,7 +43,20 @@ const NotificationScreen = ({ navigation }) => {
       // Handle error if needed
     }
   };
+  const isFocused = useIsFocused(); // Check if the screen is focused
 
+  useEffect(() => {
+    // Fetch unread notification count when the screen is focused
+    const fetchUnreadNotifications = async () => {
+      const data = await getUnreadNotificationsCount(
+        globalState.identityNumberGlobal
+      );
+      setUnreadNotificationsCount(data.count);
+    };
+    if (isFocused) {
+      fetchUnreadNotifications();
+    }
+  }, [isFocused]);
   useEffect(() => {
     fetchReadNotifications();
   }, [globalState.identityNumberGlobal]);
@@ -66,9 +81,13 @@ const NotificationScreen = ({ navigation }) => {
   };
 
   //NOTIFICATIONS SHOULD BE FETCHED IN THESE FUNCTIONS TO KEEP IT UP TO DATE
-  const handleUnreadNotificationButton = () => {
+  const handleUnreadNotificationButton = async () => {
     setIsReadTab(false); // Update isReadTab state to false
     fetchUnreadNotifications(); // Fetch notifications when the button is pressed
+    const data = await getUnreadNotificationsCount(
+      globalState.identityNumberGlobal
+    );
+    setUnreadNotificationsCount(data.count);
   };
 
   const handleReadNotificationButton = () => {
@@ -80,6 +99,14 @@ const NotificationScreen = ({ navigation }) => {
     console.log("NOT. PRESSED", id);
   };
   const screenWidth = Dimensions.get("window").width;
+
+  const handleAlertOKButton = async () => {
+    const data = await getUnreadNotificationsCount(
+      globalState.identityNumberGlobal
+    );
+    setUnreadNotificationsCount(data.count);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -186,6 +213,8 @@ const NotificationScreen = ({ navigation }) => {
                         } else {
                           fetchUnreadNotifications();
                         }
+
+                        handleAlertOKButton();
                       },
                     },
                   ],
@@ -210,7 +239,14 @@ const NotificationScreen = ({ navigation }) => {
           <Feather name="help-circle" size={24} style={styles.icon} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.toolbarButton}>
-          <Feather name="bell" size={24} style={styles.icon} />
+          <View style={styles.iconWithBadge}>
+            <Feather name="bell" size={24} style={styles.icon} />
+          </View>
+          {unreadNotificationsCount > 0 && (
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>{unreadNotificationsCount}</Text>
+            </View>
+          )}
         </TouchableOpacity>
         <TouchableOpacity style={styles.toolbarButton}>
           <Feather name="settings" size={24} style={styles.icon} />
@@ -305,6 +341,28 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#333",
     marginLeft: 10,
+  },
+  iconWithBadge: {
+    position: "relative",
+    width: 24,
+    height: 24,
+  },
+  badge: {
+    position: "absolute",
+    top: -8,
+    right: 4,
+    backgroundColor: "red",
+    borderRadius: 10,
+    minWidth: 20,
+    height: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 1,
+  },
+  badgeText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 12,
   },
 });
 
