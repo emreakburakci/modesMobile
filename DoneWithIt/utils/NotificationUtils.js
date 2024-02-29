@@ -66,3 +66,27 @@ export const getReadNotifications = async (identityNumber) => {
   console.log("NOT. UTILS:", responseJson);
   return responseJson;
 };
+
+export const setNotificationRead = async (identityNumber, notificationId) => {
+  const response = await fetch(
+    "http://" +
+      Properties.restSocket +
+      "/setNotificationRead?identityNumber=" +
+      identityNumber +
+      "&notificationId=" +
+      notificationId,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed get user");
+  }
+
+  let responseJson = await response.json();
+  console.log("NOT. UTILS:", responseJson);
+  return responseJson;
+};

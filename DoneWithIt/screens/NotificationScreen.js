@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import {
   getUnreadNotifications,
   getReadNotifications,
+  setNotificationRead,
 } from "../utils/NotificationUtils";
 import { Dimensions } from "react-native";
 const NotificationScreen = ({ navigation }) => {
@@ -156,13 +157,33 @@ const NotificationScreen = ({ navigation }) => {
                   [
                     {
                       text: translations.alertOK,
-                      onPress: () => {
+                      onPress: async () => {
                         console.log(
                           "UserIdentity:",
                           globalState.identityNumberGlobal,
                           "not. Id:",
                           notification.notificationId
                         );
+
+                        setNotificationRead(
+                          globalState.identityNumberGlobal,
+                          notification.notificationId
+                        );
+
+                        // Set notification as read if it's in the unread tab
+                        if (!isReadTab) {
+                          await setNotificationRead(
+                            globalState.identityNumberGlobal,
+                            notification.notificationId
+                          );
+                        }
+
+                        // Refetch notifications based on the current tab
+                        if (isReadTab) {
+                          fetchReadNotifications();
+                        } else {
+                          fetchUnreadNotifications();
+                        }
                       },
                     },
                   ],
