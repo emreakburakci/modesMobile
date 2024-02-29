@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  useFocusEffect,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useGlobalState } from "../GlobalStateContext";
 import { getTranslationResource } from "../utils/LanguageUtils";
@@ -110,8 +103,6 @@ const MainScreen = ({ navigation }) => {
           style={styles.toolbarButton}
           onPress={handleNotificationButton}
         >
-          {/* <Feather name="bell" size={24} style={styles.icon} /> */}
-
           <View style={styles.iconWithBadge}>
             <Feather name="bell" size={24} style={styles.icon} />
           </View>
