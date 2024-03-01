@@ -32,7 +32,7 @@ const LocationAuthenticationScreen = ({ navigation }) => {
         setErrorMsg(translations.locationPermissionDenined);
         return;
       }
-
+      // Location from GPS, Wi-Fi or cellular according to best accuracy among them.
       let location = await Location.getCurrentPositionAsync({});
       console.log("LOCATION OBJ:", location);
       console.log("IS MOCKED:", location.mocked);

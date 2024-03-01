@@ -74,7 +74,7 @@ export const trTranslations = {
   errorIdentityNumberInvalid: "Kimlik Numarası Geçersiz",
   unreadNotifications: "Okunmamış Bildirimler",
   readNotifications: "Okunmuş Bildirimler",
-  cellTowerLocation: "Baz İstasyonu Konumu",
+  cellTowerLocation: "Cihaz IP Bazlı Konum",
   locationAuthFailedTitle: "Konum Doğrulama Başarısız",
   locationAuthFailedMessage:
     "Konumunuz doğrulanamadı lütfen Profil Bilgileri sayfasında tanımlanmış olan konumda bulunduğunuzdan emin olun ve doğrulama işlemine baştan başlayın.",

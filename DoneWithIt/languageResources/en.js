@@ -73,7 +73,7 @@ export const enTranslations = {
   errorIdentityNumberInvalid: "Identity Number Invalid",
   unreadNotifications: "Unread Notifications",
   readNotifications: "Read Notifications",
-  cellTowerLocation: " Cell Tower Location",
+  cellTowerLocation: " Device IP Based Location",
   locationAuthFailedTitle: "Location Verification Failed",
   locationAuthFailedMessage:
     "Your location could not be verified. Please ensure that you are at the location defined in the Profile Information page and restart the verification process from the beginning.",
