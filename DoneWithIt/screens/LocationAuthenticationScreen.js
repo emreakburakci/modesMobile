@@ -111,6 +111,20 @@ const LocationAuthenticationScreen = ({ navigation }) => {
       if (isLocationConfirmed) {
         globalState.isLocationConfirmed = true;
         navigation.navigate("AllConfirmationsSuccessful");
+      } else {
+        Alert.alert(
+          translations.locationAuthFailedTitle,
+          translations.locationAuthFailedMessage,
+          [
+            {
+              text: translations.alertOK,
+              onPress: () => {
+                navigation.navigate("Main");
+              },
+            },
+          ],
+          { cancelable: false }
+        );
       }
     } else {
       console.log("Location is not available");

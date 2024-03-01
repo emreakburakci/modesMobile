@@ -69,4 +69,7 @@ export const arTranslations = {
   Arabic: "العربية",
   errorIdentityNumberInvalid: "A Identity Number Invalid",
   cellTowerLocation: "Arapça Baz İstasyonu Konumu",
+  locationAuthFailedTitle: "فشل التحقق من الموقع",
+  locationAuthFailedMessage:
+    "تعذر التحقق من موقعك، يرجى التأكد من أنك في الموقع المحدد في صفحة الملف الشخصي وأعد بدء عملية التحقق مرة أخرى.",
 };

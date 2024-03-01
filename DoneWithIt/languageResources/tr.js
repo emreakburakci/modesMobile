@@ -75,4 +75,7 @@ export const trTranslations = {
   unreadNotifications: "Okunmamış Bildirimler",
   readNotifications: "Okunmuş Bildirimler",
   cellTowerLocation: "Baz İstasyonu Konumu",
+  locationAuthFailedTitle: "Konum Doğrulama Başarısız",
+  locationAuthFailedMessage:
+    "Konumunuz doğrulanamadı lütfen Profil Bilgileri sayfasında tanımlanmış olan konumda bulunduğunuzdan emin olun ve doğrulama işlemine baştan başlayın.",
 };
