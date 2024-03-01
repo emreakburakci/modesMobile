@@ -165,7 +165,9 @@ const LoginScreen = ({ navigation }) => {
         </View>
       )}
       {error ? <Text style={styles.error}>{error}</Text> : null}
+
       <Text style={styles.pickerLabel}>{translations.languagePickerLabel}</Text>
+
       <RNPickerSelect
         onValueChange={(value) => handleLanguageChange(value)}
         items={[
