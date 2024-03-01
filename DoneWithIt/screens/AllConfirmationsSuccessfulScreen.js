@@ -5,6 +5,7 @@ import { Feather } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused hook
 import { getUnreadNotificationsCount } from "../utils/NotificationUtils";
 import { useEffect, useState } from "react";
+import { saveConfirmationInfo } from "../utils/AllConfirmationsSuccessfulUtils";
 const AllConfirmationsSuccessfulScreen = ({ navigation }) => {
   const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
   const isFocused = useIsFocused(); // Check if the screen is focused
@@ -31,6 +32,19 @@ const AllConfirmationsSuccessfulScreen = ({ navigation }) => {
     return () => clearInterval(interval);
   }, [isFocused]);
 
+  useEffect(() => {
+    // Fetch unread notification count when the screen is focused
+    const saveConfirmationData = async () => {
+      const response = await saveConfirmationInfo(
+        globalState.identityNumberGlobal
+      );
+      console.log("ALL CONFIRMATINS SUCCESSFULL", response);
+    };
+    if (isFocused) {
+      saveConfirmationData();
+    }
+  }, [isFocused]);
+
   const { globalState, setLanguage } = useGlobalState();
   let translations = getTranslationResource(globalState.language);
   const handleHomeButton = () => {
@@ -46,6 +60,7 @@ const AllConfirmationsSuccessfulScreen = ({ navigation }) => {
 
     navigation.navigate("Notification");
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
