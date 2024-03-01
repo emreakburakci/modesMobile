@@ -7,7 +7,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "notification": {
-      "icon": "./assets/icon.png",
+      "icon": "./assets/iconD.png",
       "color": "#ffffff"
     },
     "splash": {
