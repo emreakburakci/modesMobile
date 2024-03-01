@@ -137,6 +137,7 @@ const LoginScreen = ({ navigation }) => {
         placeholder={translations.identityNumber}
         value={identityNumber}
         onChangeText={setIdentityNumber}
+        keyboardType="numeric"
       />
       <TextInput
         style={[
@@ -147,7 +148,6 @@ const LoginScreen = ({ navigation }) => {
         value={password}
         onChangeText={setPassword}
         secureTextEntry
-        keyboardType="numeric"
       />
       {Object.values(errors).map((error, index) => (
         <Text key={index} style={styles.error}>
