@@ -53,7 +53,9 @@ const GSMAuthenticationScreen = ({ navigation }) => {
         },
         {
           text: translations.alertOK,
-          onPress: () => {},
+          onPress: () => {
+            setIsCodeSent(true);
+          },
         },
       ],
       { cancelable: false }
