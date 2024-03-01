@@ -2,7 +2,35 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { useGlobalState } from "../GlobalStateContext";
 import { getTranslationResource } from "../utils/LanguageUtils";
 import { Feather } from "@expo/vector-icons";
+import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused hook
+import { getUnreadNotificationsCount } from "../utils/NotificationUtils";
+import { useEffect, useState } from "react";
 const AllConfirmationsSuccessfulScreen = ({ navigation }) => {
+  const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
+  const isFocused = useIsFocused(); // Check if the screen is focused
+  useEffect(() => {
+    // Fetch unread notification count when the screen is focused
+    const fetchUnreadNotifications = async () => {
+      const data = await getUnreadNotificationsCount(
+        globalState.identityNumberGlobal
+      );
+      setUnreadNotificationsCount(data.count);
+    };
+    if (isFocused) {
+      fetchUnreadNotifications();
+    }
+
+    // Fetch every 5 seconds when the screen is focused
+    const interval = setInterval(() => {
+      if (isFocused) {
+        fetchUnreadNotifications();
+      }
+    }, globalState.notificationInterval);
+
+    // Clean up interval on component unmount or when the screen loses focus
+    return () => clearInterval(interval);
+  }, [isFocused]);
+
   const { globalState, setLanguage } = useGlobalState();
   let translations = getTranslationResource(globalState.language);
   const handleHomeButton = () => {
@@ -11,6 +39,12 @@ const AllConfirmationsSuccessfulScreen = ({ navigation }) => {
   const handlelogoutButton = () => {
     globalState.identityNumberGlobal = "";
     navigation.navigate("Login");
+  };
+
+  const handleNotificationButton = async () => {
+    console.log("Handle Notification Button");
+
+    navigation.navigate("Notification");
   };
   return (
     <View style={styles.container}>
@@ -37,8 +71,18 @@ const AllConfirmationsSuccessfulScreen = ({ navigation }) => {
         <TouchableOpacity style={styles.toolbarButton}>
           <Feather name="help-circle" size={24} style={styles.icon} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.toolbarButton}>
-          <Feather name="folder" size={24} style={styles.icon} />
+        <TouchableOpacity
+          style={styles.toolbarButton}
+          onPress={handleNotificationButton}
+        >
+          <View style={styles.iconWithBadge}>
+            <Feather name="bell" size={24} style={styles.icon} />
+          </View>
+          {unreadNotificationsCount > 0 && (
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>{unreadNotificationsCount}</Text>
+            </View>
+          )}
         </TouchableOpacity>
         <TouchableOpacity style={styles.toolbarButton}>
           <Feather name="settings" size={24} style={styles.icon} />
@@ -93,6 +137,28 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     resizeMode: "contain",
     marginTop: 20,
+  },
+  iconWithBadge: {
+    position: "relative",
+    width: 24,
+    height: 24,
+  },
+  badge: {
+    position: "absolute",
+    top: -8,
+    right: 4,
+    backgroundColor: "red",
+    borderRadius: 10,
+    minWidth: 20,
+    height: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 1,
+  },
+  badgeText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 12,
   },
 });
 

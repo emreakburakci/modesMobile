@@ -25,6 +25,15 @@ const MainScreen = ({ navigation }) => {
     if (isFocused) {
       fetchUnreadNotifications();
     }
+    // Fetch every 5 seconds when the screen is focused
+    const interval = setInterval(() => {
+      if (isFocused) {
+        fetchUnreadNotifications();
+      }
+    }, globalState.notificationInterval);
+
+    // Clean up interval on component unmount or when the screen loses focus
+    return () => clearInterval(interval);
   }, [isFocused]);
 
   const startConfirmation = () => {

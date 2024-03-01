@@ -13,6 +13,7 @@ export const GlobalStateProvider = ({ children }) => {
     isFaceConfirmedGlobal: false,
     isGSMConfirmedGlobal: false,
     isLocationConfirmedGlobal: false,
+    notificationInterval: 10000,
     // Add more global variables here
   });
 
@@ -51,6 +52,13 @@ export const GlobalStateProvider = ({ children }) => {
     }));
   };
 
+  const setNotificationInterval = (notificationInterval) => {
+    setGlobalState((prevState) => ({
+      ...prevState,
+      setNotificationInterval: notificationInterval,
+    }));
+  };
+
   return (
     <GlobalStateContext.Provider
       value={{
@@ -60,6 +68,7 @@ export const GlobalStateProvider = ({ children }) => {
         setIsFaceConfirmedGlobal,
         setIsGSMConfirmedGlobal,
         setIsLocationConfirmedGlobal,
+        setNotificationInterval,
       }}
     >
       {children}
