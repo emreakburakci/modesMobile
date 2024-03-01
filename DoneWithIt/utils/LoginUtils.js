@@ -18,25 +18,9 @@ export const authenticateCredentials = async (identityNumber, password) => {
       }
     );
 
-    // Assuming your API returns a boolean value
     return response.data; // This will be true or false based on the authentication
   } catch (error) {
     console.error("Error authenticating credentials:", error);
     return false; // Return false in case of any error
   }
-
-  /*
-
-  //Password should be encrypted
-  try {
-    const response = await fetch(url);
-
-    jsonData = await response.json();
-    console.log("authenticateCredentials REST DATA:", jsonData);
-    return Boolean(jsonData);
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return false;
-  }
-  */
 };

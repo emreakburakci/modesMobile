@@ -43,10 +43,12 @@ const LoginScreen = ({ navigation }) => {
 
     setErrors(updatedErrors);
   }, [selectedLanguage]);
+
   useEffect(() => {
     // Trigger form validation when changes occures
     validateForm();
   }, [identityNumber, password]);
+
   useEffect(() => {
     // Clear inputs when the component mounts
     const unsubscribe = navigation.addListener("focus", () => {
@@ -56,6 +58,7 @@ const LoginScreen = ({ navigation }) => {
 
     return unsubscribe;
   }, [navigation]);
+
   const validateForm = () => {
     let errors = {};
 
@@ -144,6 +147,7 @@ const LoginScreen = ({ navigation }) => {
         value={password}
         onChangeText={setPassword}
         secureTextEntry
+        keyboardType="numeric"
       />
       {Object.values(errors).map((error, index) => (
         <Text key={index} style={styles.error}>
