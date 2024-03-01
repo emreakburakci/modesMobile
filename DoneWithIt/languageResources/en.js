@@ -77,4 +77,5 @@ export const enTranslations = {
   locationAuthFailedTitle: "Location Verification Failed",
   locationAuthFailedMessage:
     "Your location could not be verified. Please ensure that you are at the location defined in the Profile Information page and restart the verification process from the beginning.",
+  noAccessToCamera: "No access to camera",
 };

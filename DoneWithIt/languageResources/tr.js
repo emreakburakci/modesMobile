@@ -78,4 +78,5 @@ export const trTranslations = {
   locationAuthFailedTitle: "Konum Doğrulama Başarısız",
   locationAuthFailedMessage:
     "Konumunuz doğrulanamadı lütfen Profil Bilgileri sayfasında tanımlanmış olan konumda bulunduğunuzdan emin olun ve doğrulama işlemine baştan başlayın.",
+  noAccessToCamera: "Kamera erişimi yok",
 };

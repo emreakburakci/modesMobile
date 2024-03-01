@@ -89,7 +89,7 @@ const FaceAuthenticationScreen = ({ navigation }) => {
   const handleConfirmPhotos = async (photoArray) => {
     //authenticateFace should send photo to the external face recognition service
     //if service confirms photo, app navigates to the GSMAuthentication screen
-    //it sends only one photo to send 3 photo pass photos to the function
+
     console.log("handleConfirmPhotos runned");
     const isAuthenticated = await authenticateFace(
       globalState.identityNumberGlobal,
@@ -134,7 +134,7 @@ const FaceAuthenticationScreen = ({ navigation }) => {
     return <View />;
   }
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+    return <Text>{translations.noAccessToCamera}</Text>;
   }
 
   return (
