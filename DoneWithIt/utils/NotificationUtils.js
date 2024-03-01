@@ -15,7 +15,7 @@ export const getNotifications = async (identityNumber) => {
     }
   );
   if (!response.ok) {
-    throw new Error("Failed get user");
+    throw new Error("Notification Utils Failed get user");
   }
 
   let responseJson = await response.json();
