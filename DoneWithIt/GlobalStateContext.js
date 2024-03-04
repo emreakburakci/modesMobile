@@ -9,7 +9,7 @@ export const GlobalStateProvider = ({ children }) => {
   const [globalState, setGlobalState] = useState({
     language: "English",
     identityNumberGlobal: "",
-    buttonColor: "#9383FF",
+    buttonColor: "#0d5989",
     isFaceConfirmedGlobal: false,
     isGSMConfirmedGlobal: false,
     isLocationConfirmedGlobal: false,

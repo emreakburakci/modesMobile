@@ -51,12 +51,17 @@ const ProfileInformationScreen = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image
-          style={styles.modesLogo}
-          source={require("../assets/modesText.png")}
-        />
+        <Text style={styles.headerText}>
+          {translations.profileInformations}
+        </Text>
       </View>
       <View style={styles.userInfoContainer}>
+        <View style={styles.profileImageContainer}>
+          <Image
+            style={styles.profileImage}
+            source={require("../assets/profile.png")}
+          />
+        </View>
         <View style={styles.row}>
           <Text style={styles.label}>{translations.firstName}:</Text>
           <Text style={styles.value}>{userInfo.firstName}</Text>
@@ -148,12 +153,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
+    backgroundColor: "#0d5989",
   },
   headerText: {
-    color: "#fff",
-    fontSize: 18,
+    color: "white",
+    marginTop: 30,
+    fontSize: 20,
     fontWeight: "bold",
-    marginTop: 20,
   },
   userInfoContainer: {
     flex: 1,
@@ -172,28 +178,31 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     paddingVertical: 10,
-    backgroundColor: "#fff", // Background color of the toolbar
+    backgroundColor: "#0d5989", // Background color of the toolbar
     borderTopWidth: 1,
     borderTopColor: "#ccc", // Border color
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
+    borderTopWidth: 1,
   },
   toolbarButton: {
     flex: 1,
     alignItems: "center",
   },
   icon: {
-    color: "#836FFF",
+    color: "#fff",
   },
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 5,
-    backgroundColor: "#98ABEE",
+    backgroundColor: "#EEEDEB",
     borderRadius: 10,
+    alignItems: "center", // Center vertically
     padding: 5,
+    height: 40,
   },
   label: {
     fontWeight: "bold",
@@ -217,7 +226,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -8,
     right: 4,
-    backgroundColor: "red",
+    backgroundColor: "#FBA834",
     borderRadius: 10,
     minWidth: 20,
     height: 20,
@@ -229,6 +238,21 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     fontSize: 12,
+  },
+  profileImage: {
+    aspectRatio: 0.15,
+    resizeMode: "contain",
+    marginBottom: -80,
+    marginTop: -100,
+  },
+  profileImageContainer: {
+    width: 120, // Adjust width and height according to your requirement
+    height: 120,
+    borderRadius: 60, // Half of width and height to make it a circle
+    overflow: "hidden", // Clip content to the circular border
+    marginBottom: 20,
+    justifyContent: "center", // Center content vertically
+    alignItems: "center", // Center content horizontally
   },
 });
 export default ProfileInformationScreen;

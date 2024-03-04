@@ -27,6 +27,7 @@ const NotificationScreen = ({ navigation }) => {
   const [readNotifications, setReadNotifications] = useState([]);
   const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
   const [isReadTab, setIsReadTab] = useState(false); // Initialize isReadTab state
+  const [activeTab, setActiveTab] = useState("unread"); // Initialize activeTab state to 'unread'
 
   useEffect(() => {
     fetchUnreadNotifications();
@@ -91,6 +92,8 @@ const NotificationScreen = ({ navigation }) => {
 
   //NOTIFICATIONS SHOULD BE FETCHED IN THESE FUNCTIONS TO KEEP IT UP TO DATE
   const handleUnreadNotificationButton = async () => {
+    setActiveTab("unread"); // Update activeTab state to 'unread'
+
     setIsReadTab(false); // Update isReadTab state to false
     fetchUnreadNotifications(); // Fetch notifications when the button is pressed
     const data = await getUnreadNotificationsCount(
@@ -100,10 +103,13 @@ const NotificationScreen = ({ navigation }) => {
   };
 
   const handleReadNotificationButton = () => {
+    setActiveTab("read"); // Update activeTab state to 'read'
+
     setIsReadTab(true); // Update isReadTab state to true
     fetchReadNotifications();
   };
-
+  const bookIconColor = activeTab === "unread" ? "green" : "black";
+  const bookOpenIconColor = activeTab === "read" ? "green" : "black";
   const notificationPressed = (id) => {
     console.log("NOT. PRESSED", id);
   };
@@ -119,10 +125,7 @@ const NotificationScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image
-          style={styles.modesLogo}
-          source={require("../assets/modesText.png")}
-        />
+        <Text style={styles.headerText}>{translations.notifications}</Text>
       </View>
 
       <View style={styles.tabBar}>
@@ -130,13 +133,21 @@ const NotificationScreen = ({ navigation }) => {
           style={styles.headerButton}
           onPress={handleUnreadNotificationButton}
         >
-          <Feather name="book" size={24} style={styles.icon} />
+          <Feather
+            name="book"
+            size={24}
+            style={[styles.icon, { color: bookIconColor }]}
+          />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.headerButton}
           onPress={handleReadNotificationButton}
         >
-          <Feather name="book-open" size={24} style={styles.icon} />
+          <Feather
+            name="book-open"
+            size={24}
+            style={[styles.icon, { color: bookOpenIconColor }]}
+          />
         </TouchableOpacity>
       </View>
       {isReadTab ? (
@@ -283,18 +294,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     paddingVertical: 10,
-    marginTop: -20,
   },
-
   toolbar: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
     width: "100%",
     paddingVertical: 10,
-    backgroundColor: "#fff",
+    backgroundColor: "#0d5989", // Background color of the toolbar
     borderTopWidth: 1,
-    borderTopColor: "#ccc",
+    borderTopColor: "#ccc", // Border color
     position: "absolute",
     bottom: 0,
     left: 0,
@@ -306,13 +315,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   icon: {
-    color: "#836FFF",
+    color: "#fff",
   },
   header: {
     height: 100,
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
+    backgroundColor: "#0d5989",
+  },
+  headerText: {
+    color: "white",
+    marginTop: 30,
+    fontSize: 20,
+    fontWeight: "bold",
   },
   modesLogo: {
     width: "60%",
@@ -344,12 +360,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#333",
     marginLeft: 10,
+    marginBottom: 10,
   },
   unreadTabTitle: {
     fontSize: 16,
     fontWeight: "bold",
     color: "#333",
     marginLeft: 10,
+    marginBottom: 10,
   },
   iconWithBadge: {
     position: "relative",
@@ -360,7 +378,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -8,
     right: 4,
-    backgroundColor: "red",
+    backgroundColor: "#FBA834",
     borderRadius: 10,
     minWidth: 20,
     height: 20,

@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { useGlobalState } from "../GlobalStateContext";
 import { getTranslationResource } from "../utils/LanguageUtils";
@@ -62,13 +69,14 @@ const MainScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image
+        <Text style={styles.headerText}>ADLİ KONTROL SİSTEMİ</Text>
+        {/* <Image
           style={styles.modesLogo}
           source={require("../assets/modesText.png")}
-        />
+        /> */}
       </View>
 
-      <View style={styles.content}>
+      {/* <View style={styles.content}>
         <TouchableOpacity style={styles.button} onPress={startConfirmation}>
           <Text style={styles.buttonText}>
             {translations.startConfirmation}
@@ -91,7 +99,58 @@ const MainScreen = ({ navigation }) => {
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Button 5</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
+      <Image
+        style={styles.bannerImage}
+        source={require("../assets/lawyer.jpg")}
+      ></Image>
+      <ScrollView contentContainerStyle={styles.content}>
+        <View style={styles.buttonRow}>
+          <TouchableOpacity style={styles.button} onPress={startConfirmation}>
+            <Feather style={styles.buttonIcon} name="play"></Feather>
+
+            <Text style={styles.buttonText}>
+              {translations.startConfirmation}
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={openProfileInformation}
+          >
+            <Feather style={styles.buttonIcon} name="info"></Feather>
+
+            <Text style={styles.buttonText}>
+              {translations.profileInformations}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttonRow}>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Button 3</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Button 4</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttonRow}>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Button 5</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Button 6</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttonRow}>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Button 7</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Button 8</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.footer}></View>
+      </ScrollView>
 
       <View style={styles.toolbar}>
         <TouchableOpacity
@@ -141,6 +200,9 @@ const MainScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  footer: {
+    height: 0,
+  },
   container: {
     flex: 1,
     justifyContent: "center",
@@ -151,15 +213,23 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
+    backgroundColor: "#0d5989",
+  },
+  headerText: {
+    color: "white",
+    marginTop: 30,
+    fontSize: 20,
+    fontWeight: "bold",
   },
 
   content: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: -100,
+    paddingBottom: 55, // Add paddingBottom to ensure space for the bottom toolbar
   },
-  button: {
+
+  /* button: {
     backgroundColor: "#836FFF",
     padding: 10,
     marginVertical: 10,
@@ -172,6 +242,38 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
+  }, */
+
+  buttonRow: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  button: {
+    backgroundColor: "#EEEDEB",
+    padding: 10,
+    borderRadius: 10, // To make buttons square, set borderRadius to half of the desired width
+    width: 150, // Set width for each button
+    height: 170,
+    padding: 4,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    margin: 10,
+    justifyContent: "center", // Center content vertically
+    alignItems: "center", // Center content horizontally
+  },
+
+  buttonText: {
+    color: "#3C3633",
+    fontSize: 16,
+    textAlign: "center",
+    marginTop: 5,
   },
   info: {
     height: 100,
@@ -185,7 +287,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     paddingVertical: 10,
-    backgroundColor: "#fff", // Background color of the toolbar
+    backgroundColor: "#0d5989", // Background color of the toolbar
     borderTopWidth: 1,
     borderTopColor: "#ccc", // Border color
     position: "absolute",
@@ -199,7 +301,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   icon: {
-    color: "#836FFF",
+    color: "#fff",
   },
   modesLogo: {
     width: "60%",
@@ -216,7 +318,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -8,
     right: 4,
-    backgroundColor: "red",
+    backgroundColor: "#FBA834",
     borderRadius: 10,
     minWidth: 20,
     height: 20,
@@ -228,6 +330,17 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     fontSize: 12,
+  },
+  bannerImage: {
+    aspectRatio: 0.5,
+    resizeMode: "contain",
+    height: "100%",
+    marginBottom: -300,
+    marginTop: -310,
+  },
+  buttonIcon: {
+    fontSize: 70,
+    color: "#B67352",
   },
 });
 export default MainScreen;

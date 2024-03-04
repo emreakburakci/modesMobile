@@ -64,18 +64,20 @@ const AllConfirmationsSuccessfulScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image
-          style={styles.modesLogo}
-          source={require("../assets/modesText.png")}
-        />
+        <Text style={styles.headerText}>{translations.AppName}</Text>
       </View>
-      {globalState.isGSMConfirmed &&
-        globalState.isFaceConfirmed &&
-        globalState.isLocationConfirmed && (
-          <View>
-            <Text>{translations.allConfirmationsSuccessfulMessage}</Text>
-          </View>
-        )}
+      <View style={styles.contentContainer}>
+        {globalState.isGSMConfirmed &&
+          globalState.isFaceConfirmed &&
+          globalState.isLocationConfirmed && (
+            <View>
+              <Text style={styles.allConfirmationsSuccessfulText}>
+                {translations.allConfirmationsSuccessfulMessage}
+              </Text>
+              <Feather name="check-square" style={styles.checkIcon}></Feather>
+            </View>
+          )}
+      </View>
       <View style={styles.toolbar}>
         <TouchableOpacity
           style={styles.toolbarButton}
@@ -125,7 +127,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     paddingVertical: 10,
-    backgroundColor: "#fff", // Background color of the toolbar
+    backgroundColor: "#0d5989", // Background color of the toolbar
     borderTopWidth: 1,
     borderTopColor: "#ccc", // Border color
     position: "absolute",
@@ -139,13 +141,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   icon: {
-    color: "#836FFF",
+    color: "#fff",
   },
   header: {
     height: 100,
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
+    backgroundColor: "#0d5989",
+  },
+  headerText: {
+    color: "white",
+    marginTop: 30,
+    fontSize: 20,
+    fontWeight: "bold",
   },
   modesLogo: {
     width: "60%",
@@ -162,7 +171,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -8,
     right: 4,
-    backgroundColor: "red",
+    backgroundColor: "#FBA834",
     borderRadius: 10,
     minWidth: 20,
     height: 20,
@@ -174,6 +183,26 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     fontSize: 12,
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    paddingHorizontal: 20, // Add some horizontal padding
+  },
+  confirmationsContainer: {
+    alignItems: "center",
+  },
+  allConfirmationsSuccessfulText: {
+    fontSize: 20,
+    textAlign: "center", // Center the text horizontally
+  },
+  checkIcon: {
+    fontSize: 60,
+    color: "#87A922",
+    marginTop: 10, // Add some space between text and icon
+    textAlign: "center",
   },
 });
 

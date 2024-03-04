@@ -153,17 +153,10 @@ const LocationAuthenticationScreen = ({ navigation }) => {
       <Text style={styles.address}>{cellTowerLocation}</Text>
       <View style={styles.buttonContainer}>
         <Button
-          color="#9383FF"
+          color="#0d5989"
           title={translations.confirmLocationButtonText}
           onPress={handleConfirmLocation}
         />
-        <View style={styles.logoutButton}>
-          <Button
-            title={translations.logout}
-            onPress={handleLogout}
-            color="#9383FF"
-          />
-        </View>
       </View>
     </View>
   );

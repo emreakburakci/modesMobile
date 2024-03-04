@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   startConfirmationButton: {
-    backgroundColor: "#836FFF",
+    backgroundColor: "#0d5989",
     borderRadius: 5,
     paddingHorizontal: 20,
     paddingVertical: 10,

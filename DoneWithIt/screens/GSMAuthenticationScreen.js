@@ -107,7 +107,7 @@ const GSMAuthenticationScreen = ({ navigation }) => {
     <View style={styles.container}>
       {!isCodeSent ? (
         <Button
-          color="#9383FF"
+          color="#0d5989"
           title={translations.GSMSendCodeButtonText}
           onPress={handleSendSMS}
           style={styles.button}
@@ -124,7 +124,7 @@ const GSMAuthenticationScreen = ({ navigation }) => {
           />
           <View>
             <Button
-              color="#9383FF"
+              color="#0d5989"
               title={translations.confirmGSMCodeButtonText}
               onPress={handleConfirmCode}
               style={styles.button}

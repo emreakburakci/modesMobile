@@ -79,4 +79,6 @@ export const trTranslations = {
   locationAuthFailedMessage:
     "Konumunuz doğrulanamadı lütfen Profil Bilgileri sayfasında tanımlanmış olan konumda bulunduğunuzdan emin olun ve doğrulama işlemine baştan başlayın.",
   noAccessToCamera: "Kamera erişimi yok",
+  AppName: "Adli Kontrol Sistemi",
+  notifications: "Bildirimler",
 };

@@ -8,9 +8,11 @@ import {
   error,
   Alert,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import { authenticateCredentials } from "../utils/LoginUtils";
 import RNPickerSelect from "react-native-picker-select";
+import { Ionicons } from "@expo/vector-icons"; // Import Ionicons or any other icon library you prefer
 
 import { getTranslationResource } from "../utils/LanguageUtils";
 import { useGlobalState } from "../GlobalStateContext";
@@ -25,6 +27,11 @@ const LoginScreen = ({ navigation }) => {
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
   globalState.language = selectedLanguage;
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   //Component values shown to the user should be taken from translations object in all screens
   let translations = getTranslationResource(globalState.language);
@@ -124,10 +131,15 @@ const LoginScreen = ({ navigation }) => {
 
     console.log("Selected language:", language);
   };
+
   return (
     <View style={styles.container}>
-      <Image style={styles.modesLogo} source={require("../assets/modes.png")} />
-      <Text style={styles.heading}>{translations.login}</Text>
+      <Image
+        style={styles.modesLogo}
+        source={require("../assets/adLogo.png")}
+      />
+      <Text style={styles.heading}>{translations.AppName}</Text>
+      {/*  <Text style={styles.heading}>{translations.login}</Text> */}
 
       <TextInput
         style={[
@@ -139,7 +151,8 @@ const LoginScreen = ({ navigation }) => {
         onChangeText={setIdentityNumber}
         keyboardType="numeric"
       />
-      <TextInput
+
+      {/* <TextInput
         style={[
           styles.input,
           selectedLanguage === "Arabic" && { textAlign: "right" },
@@ -148,7 +161,40 @@ const LoginScreen = ({ navigation }) => {
         value={password}
         onChangeText={setPassword}
         secureTextEntry
-      />
+      /> */}
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <TextInput
+          style={{
+            flex: 1,
+            height: 50,
+            borderWidth: 1,
+            borderColor: "#ccc",
+            borderRadius: 5,
+            paddingHorizontal: 10,
+            marginBottom: 10,
+          }}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={!showPassword}
+        />
+        <TouchableOpacity
+          onPress={toggleShowPassword}
+          style={{
+            position: "absolute",
+            right: 10,
+            top: 10,
+            zIndex: 1, // Ensure the icon is above the text input
+          }}
+        >
+          <Ionicons
+            name={showPassword ? "eye-off-outline" : "eye-outline"}
+            size={24}
+            color="#333"
+            style={{ marginRight: 10 }}
+          />
+        </TouchableOpacity>
+      </View>
       {Object.values(errors).map((error, index) => (
         <Text key={index} style={styles.error}>
           {error}
@@ -189,14 +235,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
   },
+  header: {
+    width: "100%",
+    height: 60,
+    backgroundColor: "#ccc",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+
   heading: {
     fontSize: 24,
-    marginTop: -40,
-    marginBottom: 20,
+    marginTop: -70,
+    marginBottom: 30,
   },
   input: {
     width: "100%",
-    height: 40,
+    height: 50,
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 5,
@@ -211,12 +269,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   modesLogo: {
-    width: "60%",
-    aspectRatio: 1,
+    aspectRatio: 0.5,
     resizeMode: "contain",
   },
   loginButton: {
     marginTop: 15,
+    width: "100%",
   },
 });
 
