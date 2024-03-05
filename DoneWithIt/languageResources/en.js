@@ -78,4 +78,13 @@ export const enTranslations = {
   locationAuthFailedMessage:
     "Your location could not be verified. Please ensure that you are at the location defined in the Profile Information page and restart the verification process from the beginning.",
   noAccessToCamera: "No access to camera",
+  AppName: "Judicial Control System",
+  notifications: "Notifications",
+  GSMAuthenticationInfo:
+    "When you press the Send Verification Code button, a verification code will be sent to your registered phone number.",
+  faceAuthenticationHeader: "Face Authentication",
+  GSMConfirmationHeader: "SMS Verification",
+  LocationConfirmationHeader: "Location Verification",
+  helpHeader: "Help",
+  settingsHeader: "Settings",
 };

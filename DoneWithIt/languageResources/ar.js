@@ -67,10 +67,19 @@ export const arTranslations = {
   Turkish: "تركيا",
   English: "الإنجليزية",
   Arabic: "العربية",
-  errorIdentityNumberInvalid: "A Identity Number Invalid",
-  cellTowerLocation: "Arapça Cihaz IP Bazlı Konum",
+  errorIdentityNumberInvalid: "الرقم الهويّة غير صحيح",
+  cellTowerLocation: "موقع برج الخلية بناءً على عنوان IP للجهاز",
   locationAuthFailedTitle: "فشل التحقق من الموقع",
   locationAuthFailedMessage:
     "تعذر التحقق من موقعك، يرجى التأكد من أنك في الموقع المحدد في صفحة الملف الشخصي وأعد بدء عملية التحقق مرة أخرى.",
-  noAccessToCamera: "arapça kameraya erişim yok",
+  noAccessToCamera: "عدم الوصول إلى الكاميرا",
+  AppName: "نظام التحكم القضائي",
+  notifications: "الإشعارات",
+  GSMAuthenticationInfo:
+    "عند الضغط على زر إرسال رمز التحقق، سيتم إرسال رمز التحقق إلى رقم هاتفك المسجل.",
+  faceAuthenticationHeader: "المصادقة بواسطة الوجه",
+  GSMConfirmationHeader: "تأكيد عبر الرسائل النصية",
+  LocationConfirmationHeader: "تأكيد الموقع",
+  helpHeader: "المساعدة",
+  settingsHeader: "الإعدادات",
 };
