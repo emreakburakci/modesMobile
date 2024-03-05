@@ -11,6 +11,7 @@ import ProfileInformationScreen from "./screens/ProfileInformationScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import HelpScreen from "./screens/HelpScreen";
 import SettingsScreen from "./screens/SettingsScreen";
+import IntroScreen from "./screens/IntroScreen";
 import { GlobalStateProvider } from "./GlobalStateContext";
 
 const Stack = createStackNavigator();
@@ -20,7 +21,8 @@ const App = () => {
     <GlobalStateProvider>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Login"
+          /* initialRouteName="Login" */
+          initialRouteName="Intro"
           screenOptions={{
             headerShown: false,
           }}
@@ -100,6 +102,14 @@ const App = () => {
           <Stack.Screen
             name="Settings"
             component={SettingsScreen}
+            options={{
+              title: "",
+              headerLeft: null,
+            }}
+          />
+          <Stack.Screen
+            name="Intro"
+            component={IntroScreen}
             options={{
               title: "",
               headerLeft: null,

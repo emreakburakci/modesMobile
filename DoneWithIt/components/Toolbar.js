@@ -6,15 +6,7 @@ import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused 
 import { getUnreadNotificationsCount } from "../utils/NotificationUtils";
 import { useEffect, useState } from "react";
 
-const Toolbar = ({
-  navigation,
-  /*unreadNotificationsCount,
-   handleHomeButton,
-  handleHelpButton,
-  handleNotificationButton,
-  handleSettingsButton,
-  handlePowerButton, */
-}) => {
+const Toolbar = ({ navigation }) => {
   const { globalState, setLanguage } = useGlobalState();
   const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
 
