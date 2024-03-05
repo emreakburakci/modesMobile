@@ -134,10 +134,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.modesLogo}
-        source={require("../assets/adLogo.png")}
-      />
+      <Image style={styles.logo} source={require("../assets/adLogo.png")} />
       <Text style={styles.heading}>{translations.AppName}</Text>
       {/*  <Text style={styles.heading}>{translations.login}</Text> */}
 
@@ -268,7 +265,7 @@ const styles = StyleSheet.create({
   pickerLabel: {
     marginTop: 10,
   },
-  modesLogo: {
+  logo: {
     aspectRatio: 0.5,
     resizeMode: "contain",
   },

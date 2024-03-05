@@ -9,6 +9,8 @@ import AllConfirmationsSuccessfulScreen from "./screens/AllConfirmationsSuccessf
 import MainScreen from "./screens/MainScreen";
 import ProfileInformationScreen from "./screens/ProfileInformationScreen";
 import NotificationScreen from "./screens/NotificationScreen";
+import HelpScreen from "./screens/HelpScreen";
+import SettingsScreen from "./screens/SettingsScreen";
 import { GlobalStateProvider } from "./GlobalStateContext";
 
 const Stack = createStackNavigator();
@@ -82,6 +84,22 @@ const App = () => {
           <Stack.Screen
             name="Notification"
             component={NotificationScreen}
+            options={{
+              title: "",
+              headerLeft: null,
+            }}
+          />
+          <Stack.Screen
+            name="Help"
+            component={HelpScreen}
+            options={{
+              title: "",
+              headerLeft: null,
+            }}
+          />
+          <Stack.Screen
+            name="Settings"
+            component={SettingsScreen}
             options={{
               title: "",
               headerLeft: null,

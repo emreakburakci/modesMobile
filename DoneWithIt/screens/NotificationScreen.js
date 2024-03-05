@@ -8,8 +8,8 @@ import {
 } from "react-native";
 import { useGlobalState } from "../GlobalStateContext";
 import { getTranslationResource } from "../utils/LanguageUtils";
-import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused hook
 import { getUnreadNotificationsCount } from "../utils/NotificationUtils";
+import Toolbar from "../components/Toolbar";
 
 import { Feather } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
@@ -19,13 +19,12 @@ import {
   setNotificationRead,
 } from "../utils/NotificationUtils";
 import { Dimensions } from "react-native";
+
 const NotificationScreen = ({ navigation }) => {
   const { globalState, setLanguage } = useGlobalState();
   let translations = getTranslationResource(globalState.language);
-  //const { notifications } = route.params;
   const [notifications, setNotifications] = useState([]);
   const [readNotifications, setReadNotifications] = useState([]);
-  const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
   const [isReadTab, setIsReadTab] = useState(false); // Initialize isReadTab state
   const [activeTab, setActiveTab] = useState("unread"); // Initialize activeTab state to 'unread'
 
@@ -44,29 +43,7 @@ const NotificationScreen = ({ navigation }) => {
       // Handle error if needed
     }
   };
-  const isFocused = useIsFocused(); // Check if the screen is focused
 
-  useEffect(() => {
-    // Fetch unread notification count when the screen is focused
-    const fetchUnreadNotifications = async () => {
-      const data = await getUnreadNotificationsCount(
-        globalState.identityNumberGlobal
-      );
-      setUnreadNotificationsCount(data.count);
-    };
-    if (isFocused) {
-      fetchUnreadNotifications();
-    }
-    // Fetch every 5 seconds when the screen is focused
-    const interval = setInterval(() => {
-      if (isFocused) {
-        fetchUnreadNotifications();
-      }
-    }, globalState.notificationInterval);
-
-    // Clean up interval on component unmount or when the screen loses focus
-    return () => clearInterval(interval);
-  }, [isFocused]);
   useEffect(() => {
     fetchReadNotifications();
   }, [globalState.identityNumberGlobal]);
@@ -80,14 +57,6 @@ const NotificationScreen = ({ navigation }) => {
       console.error("Error fetching notifications:", error);
       // Handle error if needed
     }
-  };
-  const handleHomeButton = () => {
-    console.log("Navigate home from NotificationScreen");
-    navigation.navigate("Main");
-  };
-  const handlelogoutButton = () => {
-    globalState.identityNumberGlobal = "";
-    navigation.navigate("Login");
   };
 
   //NOTIFICATIONS SHOULD BE FETCHED IN THESE FUNCTIONS TO KEEP IT UP TO DATE
@@ -108,8 +77,8 @@ const NotificationScreen = ({ navigation }) => {
     setIsReadTab(true); // Update isReadTab state to true
     fetchReadNotifications();
   };
-  const bookIconColor = activeTab === "unread" ? "green" : "black";
-  const bookOpenIconColor = activeTab === "read" ? "green" : "black";
+  const bookIconColor = activeTab === "unread" ? "#0d5989" : "black";
+  const bookOpenIconColor = activeTab === "read" ? "#0d5989" : "black";
   const notificationPressed = (id) => {
     console.log("NOT. PRESSED", id);
   };
@@ -247,37 +216,7 @@ const NotificationScreen = ({ navigation }) => {
           ))}
         </View>
       )}
-
-      <View style={styles.toolbar}>
-        <TouchableOpacity
-          style={styles.toolbarButton}
-          onPress={handleHomeButton}
-        >
-          <Feather name="home" size={24} style={styles.icon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.toolbarButton}>
-          <Feather name="help-circle" size={24} style={styles.icon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.toolbarButton}>
-          <View style={styles.iconWithBadge}>
-            <Feather name="bell" size={24} style={styles.icon} />
-          </View>
-          {unreadNotificationsCount > 0 && (
-            <View style={styles.badge}>
-              <Text style={styles.badgeText}>{unreadNotificationsCount}</Text>
-            </View>
-          )}
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.toolbarButton}>
-          <Feather name="settings" size={24} style={styles.icon} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.toolbarButton}
-          onPress={handlelogoutButton}
-        >
-          <Feather name="power" size={24} style={styles.icon} />
-        </TouchableOpacity>
-      </View>
+      <Toolbar navigation={navigation} />
     </View>
   );
 };
@@ -294,35 +233,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     paddingVertical: 10,
+    marginTop: 100,
   },
-  toolbar: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    width: "100%",
-    paddingVertical: 10,
-    backgroundColor: "#0d5989", // Background color of the toolbar
-    borderTopWidth: 1,
-    borderTopColor: "#ccc", // Border color
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    borderTopWidth: 1,
-  },
-  toolbarButton: {
-    flex: 1,
-    alignItems: "center",
-  },
-  icon: {
-    color: "#fff",
-  },
+
   header: {
     height: 100,
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
     backgroundColor: "#0d5989",
+    position: "absolute",
+    top: 0,
   },
   headerText: {
     color: "white",
@@ -330,12 +251,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
-  modesLogo: {
-    width: "60%",
-    aspectRatio: 1,
-    resizeMode: "contain",
-    marginTop: 20,
-  },
+
   notificationContainer: {
     backgroundColor: "#f0f0f0",
     borderRadius: 10,
@@ -368,28 +284,6 @@ const styles = StyleSheet.create({
     color: "#333",
     marginLeft: 10,
     marginBottom: 10,
-  },
-  iconWithBadge: {
-    position: "relative",
-    width: 24,
-    height: 24,
-  },
-  badge: {
-    position: "absolute",
-    top: -8,
-    right: 4,
-    backgroundColor: "#FBA834",
-    borderRadius: 10,
-    minWidth: 20,
-    height: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 1,
-  },
-  badgeText: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 12,
   },
 });
 

@@ -141,6 +141,11 @@ const LocationAuthenticationScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>
+          {translations.LocationConfirmationHeader}
+        </Text>
+      </View>
       <Text style={styles.title}>
         {translations.locationAuthenticationTitle}
       </Text>
@@ -167,7 +172,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 20,
+  },
+  header: {
+    height: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    backgroundColor: "#0d5989",
+    position: "absolute",
+    top: 0,
+  },
+  headerText: {
+    color: "white",
+    marginTop: 30,
+    fontSize: 20,
+    fontWeight: "bold",
   },
   title: {
     fontSize: 20,

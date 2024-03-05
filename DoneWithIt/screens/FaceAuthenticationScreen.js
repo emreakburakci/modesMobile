@@ -139,6 +139,15 @@ const FaceAuthenticationScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>
+          {translations.faceAuthenticationHeader}
+        </Text>
+        {/* <Image
+          style={styles.modesLogo}
+          source={require("../assets/modesText.png")}
+        /> */}
+      </View>
       <View style={styles.messageContainer}>
         <Text style={styles.message}>{message}</Text>
       </View>
@@ -199,6 +208,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  header: {
+    height: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    backgroundColor: "#0d5989",
+    position: "absolute",
+    top: 0,
+  },
+  headerText: {
+    color: "white",
+    marginTop: 30,
+    fontSize: 20,
+    fontWeight: "bold",
   },
   cameraContainerYellow: {
     width: 350, // Adjust as needed
@@ -273,14 +297,11 @@ const styles = StyleSheet.create({
     // Add more styling properties such as letterSpacing, fontWeight, etc. for further customization
     marginRight: 10,
     marginLeft: 10,
-    marginBottom: 10,
   },
   messageContainer: {
     height: 90, // Adjust the height as needed
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 10,
-    marginTop: -60,
   },
 });
 export default FaceAuthenticationScreen;

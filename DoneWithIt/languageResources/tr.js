@@ -81,4 +81,11 @@ export const trTranslations = {
   noAccessToCamera: "Kamera erişimi yok",
   AppName: "Adli Kontrol Sistemi",
   notifications: "Bildirimler",
+  GSMAuthenticationInfo:
+    "Doğrulama Kodu Gönder butonuna bastığınızda kayıtlı telefon numaranıza doğrulama kodu gelecektir.",
+  faceAuthenticationHeader: "Yüz Doğrulama",
+  GSMConfirmationHeader: "SMS Doğrulama",
+  LocationConfirmationHeader: "Konum Doğrulama",
+  helpHeader: "Yardım",
+  settingsHeader: "Ayarlar",
 };

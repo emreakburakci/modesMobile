@@ -5,6 +5,7 @@ import { getTranslationResource } from "../utils/LanguageUtils";
 import * as Clipboard from "expo-clipboard";
 import { authenticateGSM, clearGSMCode } from "../utils/GSMAuthenticationUtils";
 import { Properties } from "../utils/Properties";
+import { Feather } from "@expo/vector-icons";
 
 const GSMAuthenticationScreen = ({ navigation }) => {
   const [code, setCode] = useState("");
@@ -105,13 +106,28 @@ const GSMAuthenticationScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>
+          {translations.GSMConfirmationHeader}
+        </Text>
+      </View>
+
       {!isCodeSent ? (
-        <Button
-          color="#0d5989"
-          title={translations.GSMSendCodeButtonText}
-          onPress={handleSendSMS}
-          style={styles.button}
-        />
+        <View>
+          <View style={styles.informationContainer}>
+            <Text style={styles.infoText}>
+              {translations.GSMAuthenticationInfo}
+            </Text>
+            <Feather style={styles.infoIcon} name="message-square"></Feather>
+          </View>
+
+          <Button
+            color="#0d5989"
+            title={translations.GSMSendCodeButtonText}
+            onPress={handleSendSMS}
+            style={styles.button}
+          />
+        </View>
       ) : (
         <>
           <Text style={styles.text}>{translations.GSMCodeSentMessage}</Text>
@@ -141,7 +157,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 20,
+  },
+  header: {
+    height: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    backgroundColor: "#0d5989",
+    position: "absolute",
+    top: 0,
+  },
+  headerText: {
+    color: "white",
+    marginTop: 30,
+    fontSize: 20,
+    fontWeight: "bold",
   },
   heading: {
     fontSize: 20,
@@ -149,6 +179,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   text: {
+    fontSize: 20,
+    color: "#333", // Adjust color according to your design
+    fontFamily: "Roboto", // Use an appropriate font family
+    lineHeight: 24, // Adjust line height for better readability
+    textAlign: "center", // Align text as per your design
+    // Add more styling properties such as letterSpacing, fontWeight, etc. for further customization
+    marginRight: 10,
+    marginLeft: 10,
     marginBottom: 20,
   },
   input: {
@@ -156,12 +194,30 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 5,
     padding: 10,
+
     marginBottom: 20,
-    width: "100%",
+    width: "97%",
   },
   button: {
     marginBottom: 10,
     width: "100%",
+  },
+  informationContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  infoIcon: {
+    fontSize: 40,
+    marginTop: 10,
+    marginBottom: 10,
+    color: "#0d5989",
+  },
+  infoText: {
+    fontSize: 20,
+    color: "#333", // Adjust color according to your design
+    fontFamily: "Roboto", // Use an appropriate font family
+    lineHeight: 24, // Adjust line height for better readability
+    textAlign: "center", // Align text as per your design
   },
 });
 

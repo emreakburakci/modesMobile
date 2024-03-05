@@ -6,42 +6,16 @@ import {
   Image,
   ScrollView,
 } from "react-native";
-import React, { useEffect, useState } from "react";
 import { useGlobalState } from "../GlobalStateContext";
 import { getTranslationResource } from "../utils/LanguageUtils";
 import { getUserInformation } from "../utils/ProfileInfromationUtils";
-import { getUnreadNotificationsCount } from "../utils/NotificationUtils";
 import { Feather } from "@expo/vector-icons";
-import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused hook
+import Toolbar from "../components/Toolbar";
 
 const MainScreen = ({ navigation }) => {
   const { globalState } = useGlobalState();
 
   let translations = getTranslationResource(globalState.language);
-  const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
-  const isFocused = useIsFocused(); // Check if the screen is focused
-
-  useEffect(() => {
-    // Fetch unread notification count when the screen is focused
-    const fetchUnreadNotifications = async () => {
-      const data = await getUnreadNotificationsCount(
-        globalState.identityNumberGlobal
-      );
-      setUnreadNotificationsCount(data.count);
-    };
-    if (isFocused) {
-      fetchUnreadNotifications();
-    }
-    // Fetch every 5 seconds when the screen is focused
-    const interval = setInterval(() => {
-      if (isFocused) {
-        fetchUnreadNotifications();
-      }
-    }, globalState.notificationInterval);
-
-    // Clean up interval on component unmount or when the screen loses focus
-    return () => clearInterval(interval);
-  }, [isFocused]);
 
   const startConfirmation = () => {
     navigation.navigate("FaceAuthentication");
@@ -52,54 +26,11 @@ const MainScreen = ({ navigation }) => {
     navigation.navigate("ProfileInformation", { userInfo: user });
   };
 
-  const handleHomeButton = () => {};
-  const handlePowerButton = () => {
-    globalState.identityNumberGlobal = "";
-    navigation.navigate("Login");
-  };
-  const handleSettingsButton = () => {};
-  const handleHelpButton = () => {};
-
-  const handleNotificationButton = async () => {
-    console.log("Handle Notification Button");
-
-    navigation.navigate("Notification");
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>ADLİ KONTROL SİSTEMİ</Text>
-        {/* <Image
-          style={styles.modesLogo}
-          source={require("../assets/modesText.png")}
-        /> */}
       </View>
-
-      {/* <View style={styles.content}>
-        <TouchableOpacity style={styles.button} onPress={startConfirmation}>
-          <Text style={styles.buttonText}>
-            {translations.startConfirmation}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={openProfileInformation}
-        >
-          <Text style={styles.buttonText}>
-            {translations.profileInformations}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Button 3</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Button 4</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Button 5</Text>
-        </TouchableOpacity>
-      </View> */}
       <Image
         style={styles.bannerImage}
         source={require("../assets/lawyer.jpg")}
@@ -127,74 +58,43 @@ const MainScreen = ({ navigation }) => {
         </View>
         <View style={styles.buttonRow}>
           <TouchableOpacity style={styles.button}>
+            <Feather style={styles.buttonIcon} name="box"></Feather>
+
             <Text style={styles.buttonText}>Button 3</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
+            <Feather style={styles.buttonIcon} name="box"></Feather>
+
             <Text style={styles.buttonText}>Button 4</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonRow}>
           <TouchableOpacity style={styles.button}>
+            <Feather style={styles.buttonIcon} name="box"></Feather>
+
             <Text style={styles.buttonText}>Button 5</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
+            <Feather style={styles.buttonIcon} name="box"></Feather>
+
             <Text style={styles.buttonText}>Button 6</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonRow}>
           <TouchableOpacity style={styles.button}>
+            <Feather style={styles.buttonIcon} name="box"></Feather>
+
             <Text style={styles.buttonText}>Button 7</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
+            <Feather style={styles.buttonIcon} name="box"></Feather>
+
             <Text style={styles.buttonText}>Button 8</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.footer}></View>
       </ScrollView>
-
-      <View style={styles.toolbar}>
-        <TouchableOpacity
-          style={styles.toolbarButton}
-          onPress={handleHomeButton}
-        >
-          <Feather name="home" size={24} style={styles.icon} />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.toolbarButton}
-          onPress={handleHelpButton}
-        >
-          <Feather name="help-circle" size={24} style={styles.icon} />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.toolbarButton}
-          onPress={handleNotificationButton}
-        >
-          <View style={styles.iconWithBadge}>
-            <Feather name="bell" size={24} style={styles.icon} />
-          </View>
-          {unreadNotificationsCount > 0 && (
-            <View style={styles.badge}>
-              <Text style={styles.badgeText}>{unreadNotificationsCount}</Text>
-            </View>
-          )}
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.toolbarButton}
-          onPress={handleSettingsButton}
-        >
-          <Feather name="settings" size={24} style={styles.icon} />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.toolbarButton}
-          onPress={handlePowerButton}
-        >
-          <Feather name="power" size={24} style={styles.icon} />
-        </TouchableOpacity>
-      </View>
+      <Toolbar navigation={navigation} />
     </View>
   );
 };
@@ -214,6 +114,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     backgroundColor: "#0d5989",
+    position: "absolute",
+    top: 0,
   },
   headerText: {
     color: "white",
@@ -228,21 +130,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingBottom: 55, // Add paddingBottom to ensure space for the bottom toolbar
   },
-
-  /* button: {
-    backgroundColor: "#836FFF",
-    padding: 10,
-    marginVertical: 10,
-    borderRadius: 5,
-    width: 200,
-    alignItems: "center",
-  },
-
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-  }, */
 
   buttonRow: {
     flexDirection: "row",
@@ -281,66 +168,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
   },
-  toolbar: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    width: "100%",
-    paddingVertical: 10,
-    backgroundColor: "#0d5989", // Background color of the toolbar
-    borderTopWidth: 1,
-    borderTopColor: "#ccc", // Border color
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    borderTopWidth: 1,
-  },
-  toolbarButton: {
-    flex: 1,
-    alignItems: "center",
-  },
-  icon: {
-    color: "#fff",
-  },
-  modesLogo: {
-    width: "60%",
-    aspectRatio: 1,
-    resizeMode: "contain",
-    marginTop: 20,
-  },
-  iconWithBadge: {
-    position: "relative",
-    width: 24,
-    height: 24,
-  },
-  badge: {
-    position: "absolute",
-    top: -8,
-    right: 4,
-    backgroundColor: "#FBA834",
-    borderRadius: 10,
-    minWidth: 20,
-    height: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 1,
-  },
-  badgeText: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 12,
-  },
   bannerImage: {
     aspectRatio: 0.5,
     resizeMode: "contain",
     height: "100%",
-    marginBottom: -300,
-    marginTop: -310,
+    marginBottom: -308,
+    marginTop: -210,
+    shadowColor: "black", // Shadow color
+    shadowOffset: { width: 0, height: 9 }, // Shadow offset
+    shadowOpacity: 1, // Shadow opacity
+    shadowRadius: 3, // Shadow radius
   },
   buttonIcon: {
     fontSize: 70,
-    color: "#B67352",
+    color: "#735f39",
   },
 });
 export default MainScreen;
