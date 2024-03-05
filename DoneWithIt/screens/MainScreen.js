@@ -29,7 +29,7 @@ const MainScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>ADLİ KONTROL SİSTEMİ</Text>
+        <Text style={styles.headerText}>{translations.AppName}</Text>
       </View>
       <Image
         style={styles.bannerImage}
