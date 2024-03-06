@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, StatusBar } from "react-native";
 
 const IntroScreen = ({ navigation }) => {
   useEffect(() => {
@@ -11,6 +11,8 @@ const IntroScreen = ({ navigation }) => {
   }, []);
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor="#0d5989" />
+
       <Image style={styles.logo} source={require("../assets/adLogo.png")} />
     </View>
   );

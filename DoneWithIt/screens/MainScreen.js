@@ -35,7 +35,7 @@ const MainScreen = ({ navigation }) => {
       </View>
       <Image
         style={styles.bannerImage}
-        source={require("../assets/lawyer.jpg")}
+        source={require("../assets/law.png")}
       ></Image>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.buttonRow}>
