@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  StatusBar,
 } from "react-native";
 import { useGlobalState } from "../GlobalStateContext";
 import { getTranslationResource } from "../utils/LanguageUtils";
@@ -28,6 +29,7 @@ const MainScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor="#0d5989" />
       <View style={styles.header}>
         <Text style={styles.headerText}>{translations.AppName}</Text>
       </View>
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     color: "white",
-    marginTop: 30,
+    marginTop: 10,
     fontSize: 20,
     fontWeight: "bold",
   },
@@ -172,7 +174,7 @@ const styles = StyleSheet.create({
     aspectRatio: 0.5,
     resizeMode: "contain",
     height: "100%",
-    marginBottom: -308,
+    marginBottom: -295,
     marginTop: -210,
     shadowColor: "black", // Shadow color
     shadowOffset: { width: 0, height: 9 }, // Shadow offset

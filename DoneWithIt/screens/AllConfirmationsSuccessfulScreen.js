@@ -5,10 +5,12 @@ import { Feather } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { saveConfirmationInfo } from "../utils/AllConfirmationsSuccessfulUtils";
 import Toolbar from "../components/Toolbar";
+import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused hook
 
 const AllConfirmationsSuccessfulScreen = ({ navigation }) => {
   const { globalState, setLanguage } = useGlobalState();
   let translations = getTranslationResource(globalState.language);
+  const isFocused = useIsFocused(); // Check if the screen is focused
 
   useEffect(() => {
     // Fetch unread notification count when the screen is focused
