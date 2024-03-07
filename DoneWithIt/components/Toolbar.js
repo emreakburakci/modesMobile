@@ -6,7 +6,7 @@ import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused 
 import { getUnreadNotificationsCount } from "../utils/NotificationUtils";
 import { useEffect, useState } from "react";
 
-const Toolbar = ({ navigation }) => {
+const Toolbar = ({ navigation, refreshTrigger }) => {
   const { globalState, setLanguage } = useGlobalState();
   const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
 
@@ -32,7 +32,7 @@ const Toolbar = ({ navigation }) => {
 
     // Clean up interval on component unmount or when the screen loses focus
     return () => clearInterval(interval);
-  }, [isFocused]);
+  }, [isFocused, refreshTrigger]);
   const handleHomeButton = () => {
     navigation.navigate("Main");
   };

@@ -27,6 +27,7 @@ const NotificationScreen = ({ navigation }) => {
   const [readNotifications, setReadNotifications] = useState([]);
   const [isReadTab, setIsReadTab] = useState(false); // Initialize isReadTab state
   const [activeTab, setActiveTab] = useState("unread"); // Initialize activeTab state to 'unread'
+  const [refreshToolbar, setRefreshToolbar] = useState(false); // State to trigger Toolbar refresh
 
   useEffect(() => {
     fetchUnreadNotifications();
@@ -68,7 +69,8 @@ const NotificationScreen = ({ navigation }) => {
     const data = await getUnreadNotificationsCount(
       globalState.identityNumberGlobal
     );
-    setUnreadNotificationsCount(data.count);
+    //setUnreadNotificationsCount(data.count);
+    setRefreshToolbar(!refreshToolbar);
   };
 
   const handleReadNotificationButton = () => {
@@ -88,7 +90,8 @@ const NotificationScreen = ({ navigation }) => {
     const data = await getUnreadNotificationsCount(
       globalState.identityNumberGlobal
     );
-    setUnreadNotificationsCount(data.count);
+    //setUnreadNotificationsCount(data.count);
+    setRefreshToolbar(!refreshToolbar); // Toggle the state to trigger Toolbar refresh
   };
 
   return (
@@ -96,7 +99,6 @@ const NotificationScreen = ({ navigation }) => {
       <View style={styles.header}>
         <Text style={styles.headerText}>{translations.notifications}</Text>
       </View>
-
       <View style={styles.tabBar}>
         <TouchableOpacity
           style={styles.headerButton}
@@ -216,7 +218,8 @@ const NotificationScreen = ({ navigation }) => {
           ))}
         </View>
       )}
-      <Toolbar navigation={navigation} />
+      <Toolbar navigation={navigation} refreshTrigger={refreshToolbar} />
+      {/* Pass the refresh trigger as prop */}
     </View>
   );
 };

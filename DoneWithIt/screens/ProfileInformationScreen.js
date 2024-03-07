@@ -6,6 +6,8 @@ import Toolbar from "../components/Toolbar";
 const ProfileInformationScreen = ({ navigation, route }) => {
   const { globalState, setLanguage } = useGlobalState();
   const { userInfo } = route.params;
+  console.log(userInfo.pictureFront);
+  var base64Image = "data:image/png;base64," + userInfo.pictureFront;
 
   let translations = getTranslationResource(globalState.language);
 
@@ -18,10 +20,14 @@ const ProfileInformationScreen = ({ navigation, route }) => {
       </View>
       <View style={styles.userInfoContainer}>
         <View style={styles.profileImageContainer}>
-          <Image
-            style={styles.profileImage}
-            source={require("../assets/profile.png")}
-          />
+          {userInfo.pictureFront ? (
+            <Image style={styles.profileImage} source={{ uri: base64Image }} />
+          ) : (
+            <Image
+              style={styles.emptyProfileImage}
+              source={require("../assets/profile.png")}
+            />
+          )}
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>{translations.firstName}:</Text>
@@ -109,6 +115,13 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   profileImage: {
+    resizeMode: "contain",
+    marginBottom: -80,
+    marginTop: -70,
+    width: "140%",
+    height: "140%",
+  },
+  emptyProfileImage: {
     aspectRatio: 0.15,
     resizeMode: "contain",
     marginBottom: -80,
