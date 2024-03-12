@@ -13,6 +13,7 @@ import { Camera } from "expo-camera";
 import { authenticateFace } from "../utils/FaceAuthenticationUtils";
 import { useGlobalState } from "../GlobalStateContext";
 import { getTranslationResource } from "../utils/LanguageUtils";
+import { useKeepAwake } from "expo-keep-awake";
 
 const FaceAuthenticationScreen = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -29,6 +30,8 @@ const FaceAuthenticationScreen = ({ navigation }) => {
     "FACE AUTHENTICATION SCREEN GLOBAL identityNumber:",
     globalState.identityNumberGlobal
   );
+
+  useKeepAwake();
 
   //Component values shown to the user should be taken from translations object in all screens
   let translations = getTranslationResource(globalState.language);
