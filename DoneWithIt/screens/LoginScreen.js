@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { authenticateCredentials } from "../utils/LoginUtils";
 import RNPickerSelect from "react-native-picker-select";
-import { Ionicons } from "@expo/vector-icons"; // Import Ionicons or any other icon library you prefer
+import { Ionicons } from "@expo/vector-icons";
 
 import { getTranslationResource } from "../utils/LanguageUtils";
 import { useGlobalState } from "../GlobalStateContext";

@@ -30,13 +30,15 @@ const MainScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#0d5989" />
+
       <View style={styles.header}>
         <Text style={styles.headerText}>{translations.AppName}</Text>
       </View>
       <Image
-        style={styles.bannerImage}
+        style={styles.banner}
         source={require("../assets/law.png")}
       ></Image>
+      {/* <View style={{ marginTop: 100 }}></View> */}
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.buttonRow}>
           <TouchableOpacity style={styles.button} onPress={startConfirmation}>
@@ -102,6 +104,16 @@ const MainScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
+  banner: {
+    height: "14%",
+    width: "100%",
+    marginTop: 100,
+  },
   footer: {
     height: 0,
   },
@@ -170,17 +182,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
   },
-  bannerImage: {
-    aspectRatio: 0.5,
-    resizeMode: "contain",
-    height: "100%",
-    marginBottom: -295,
-    marginTop: -210,
-    shadowColor: "black", // Shadow color
-    shadowOffset: { width: 0, height: 9 }, // Shadow offset
-    shadowOpacity: 1, // Shadow opacity
-    shadowRadius: 3, // Shadow radius
-  },
+
   buttonIcon: {
     fontSize: 70,
     color: "#735f39",

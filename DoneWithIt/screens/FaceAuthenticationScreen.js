@@ -37,6 +37,7 @@ const FaceAuthenticationScreen = ({ navigation }) => {
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
+      Camera.playSoundOnCapture = false;
 
       setHasPermission(status === "granted");
       setMessage(translations.lookFront);

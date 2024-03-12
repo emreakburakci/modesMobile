@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "DoneWithIt",
+    "name": "AKS",
     "slug": "DoneWithIt",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/iconD.png",
     "userInterfaceStyle": "light",
     "notification": {
       "icon": "./assets/iconD.png",
@@ -19,20 +19,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.emreakburakci.DoneWithIt"
     },
     "android": {
-      
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/iconD.png",
         "backgroundColor": "#ffffff"
       },
-      
       "permissions": [
         "ACCESS_FINE_LOCATION"
       ],
       "package": "com.emreakburakci.DoneWithIt"
-      
     },
     "web": {
       "favicon": "./assets/favicon.png"
