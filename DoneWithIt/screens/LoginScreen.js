@@ -161,15 +161,18 @@ const LoginScreen = ({ navigation }) => {
       /> */}
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <TextInput
-          style={{
-            flex: 1,
-            height: 50,
-            borderWidth: 1,
-            borderColor: "#ccc",
-            borderRadius: 5,
-            paddingHorizontal: 10,
-            marginBottom: 10,
-          }}
+          style={[
+            {
+              flex: 1,
+              height: 50,
+              borderWidth: 1,
+              borderColor: "#ccc",
+              borderRadius: 5,
+              paddingHorizontal: 10,
+              marginBottom: 10,
+            },
+            selectedLanguage === "Arabic" && { textAlign: "right" },
+          ]}
           placeholder={translations.password}
           value={password}
           onChangeText={setPassword}
@@ -177,12 +180,28 @@ const LoginScreen = ({ navigation }) => {
         />
         <TouchableOpacity
           onPress={toggleShowPassword}
-          style={{
+          style={
+            selectedLanguage === "Arabic"
+              ? {
+                  position: "absolute",
+                  left: 10,
+                  top: 10,
+                  zIndex: 1, // Ensure the icon is above the text input
+                }
+              : {
+                  position: "absolute",
+                  right: 10,
+                  top: 10,
+                  zIndex: 1, // Ensure the icon is above the text input
+                }
+
+            /*  {
             position: "absolute",
             right: 10,
             top: 10,
             zIndex: 1, // Ensure the icon is above the text input
-          }}
+          } */
+          }
         >
           <Ionicons
             name={showPassword ? "eye-off-outline" : "eye-outline"}
