@@ -170,7 +170,7 @@ const LoginScreen = ({ navigation }) => {
             paddingHorizontal: 10,
             marginBottom: 10,
           }}
-          placeholder="Password"
+          placeholder={translations.password}
           value={password}
           onChangeText={setPassword}
           secureTextEntry={!showPassword}
